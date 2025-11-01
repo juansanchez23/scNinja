@@ -1,70 +1,211 @@
-# Getting Started with Create React App
+# 🥷 scNinja - Sistema de Gestión de Ninjas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sistema full-stack para gestionar ninjas, misiones y combates inspirado en Naruto.
 
-## Available Scripts
+**Stack:** Spring Boot + React + MySQL + Docker
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## ⚡ Inicio Rápido
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Requisitos
+- Docker Desktop instalado
+- Puertos 3000, 8080 y 3306 disponibles
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Instalación y Ejecución
+```bash
+# 1. Clonar repositorio
+git clone https://github.com/tu-usuario/scninja.git
+cd scninja
 
-### `npm test`
+# 2. Levantar servicios
+docker-compose up -d
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# 3. Acceder a la aplicación
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8080/api
+```
 
-### `npm run build`
+**¡Listo!** La aplicación debería estar corriendo en 2-3 minutos.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🎮 Funcionalidades
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- ✅ Crear ninjas (Factory o Builder pattern)
+- ✅ Asignar y completar misiones
+- ✅ Entrenar ninjas para mejorar stats
+- ✅ Simular combates entre ninjas
+- ✅ Sistema de progresión de rangos (Genin → Chunin → Jonin → Kage)
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📖 Uso Básico
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 1. Crear un Ninja
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Opción A - Factory (rápido):**
+- Ve a "Crear Ninja (Factory)"
+- Ingresa nombre y selecciona aldea
+- Click en "Crear Ninja"
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Opción B - Builder (personalizado):**
+- Ve a "Crear Ninja (Builder)"
+- Configura stats y selecciona jutsus
+- Click en "Crear Ninja Personalizado"
 
-## Learn More
+### 2. Crear Misiones de Prueba
+```bash
+# Misión Rango D (para Genin)
+curl -X POST http://localhost:8080/api/misiones \
+  -H "Content-Type: application/json" \
+  -d '{"nombre":"Buscar gato perdido","rango":"D","recompensa":50}'
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Misión Rango C (para Genin/Chunin)
+curl -X POST http://localhost:8080/api/misiones \
+  -H "Content-Type: application/json" \
+  -d '{"nombre":"Escoltar mercader","rango":"C","recompensa":150}'
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Misión Rango B (para Chunin/Jonin)
+curl -X POST http://localhost:8080/api/misiones \
+  -H "Content-Type: application/json" \
+  -d '{"nombre":"Eliminar renegados","rango":"B","recompensa":500}'
+```
 
-### Code Splitting
+### 3. Aceptar Misiones
+- Selecciona un ninja y una misión compatible con su rango
+- El ninja gana dinero al completarla
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 4. Entrenar Ninjas
+- Selecciona ninja, atributo (ataque/defensa/chakra), coste y mejora
+- El ninja sube de rango automáticamente al alcanzar umbrales
 
-### Analyzing the Bundle Size
+### 5. Combates
+- Selecciona dos ninjas y sus jutsus
+- El ganador recibe bonificación (+5 ataque, +2 chakra)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🔧 Comandos Útiles
+```bash
+# Ver logs
+docker-compose logs -f
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# Reiniciar servicios
+docker-compose restart
 
-### Advanced Configuration
+# Detener todo
+docker-compose down
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Limpiar y reconstruir (si algo falla)
+docker-compose down -v
+docker-compose build --no-cache
+docker-compose up -d
+```
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🐛 Problemas Comunes
 
-### `npm run build` fails to minify
+### Frontend no carga / Página en blanco
+```bash
+docker-compose down -v
+docker-compose build --no-cache frontend
+docker-compose up -d
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Backend no conecta a MySQL
+```bash
+docker-compose down -v
+docker-compose up -d
+# Espera 30 segundos para que MySQL inicialice
+```
+
+### Puerto ocupado
+```bash
+# Ver qué está usando el puerto
+lsof -i :3000
+lsof -i :8080
+
+# Matar proceso
+kill -9 <PID>
+```
+
+---
+
+## 📊 Rangos de Ninjas
+
+| Rango | Misiones Permitidas | Requisitos para Ascender |
+|-------|---------------------|--------------------------|
+| Genin | D, C | ATK≥100, DEF≥100, CHA≥100 |
+| Chunin | D, C, B | ATK≥200, DEF≥200, CHA≥200 |
+| Jonin | D, C, B, A | ATK≥300, DEF≥300, CHA≥300 |
+| Kage | Todas (D-S) | - |
+
+---
+
+## 🏗️ Arquitectura
+```
+Frontend (React + Nginx) :3000
+         ↓ HTTP
+Backend (Spring Boot) :8080
+         ↓ JPA
+Database (MySQL) :3306
+```
+
+**Patrones implementados:**
+- Factory Pattern (creación de ninjas por aldea)
+- Builder Pattern (creación personalizada)
+- Repository Pattern (acceso a datos)
+
+---
+
+## 📂 Estructura Simplificada
+```
+scninja/
+├── docker-compose.yml          # Configuración Docker
+├── src/                        # Backend Spring Boot
+│   └── main/java/.../
+│       ├── controller/         # REST Controllers
+│       ├── service/            # Lógica de negocio
+│       ├── repository/         # Acceso a datos
+│       ├── model/              # Entidades JPA
+│       ├── factory/            # Factory Pattern
+│       └── builder/            # Builder Pattern
+└── frontend/                   # Frontend React
+    ├── src/components/         # Componentes UI
+    └── src/services/           # Servicios API
+```
+
+---
+
+## 🔌 API Endpoints Principales
+```
+GET    /api/ninjas                              # Listar ninjas
+POST   /api/ninjas/factory                      # Crear con Factory
+POST   /api/ninjas/builder                      # Crear con Builder
+POST   /api/ninjas/{id}/aceptar/{misionId}      # Aceptar misión
+POST   /api/ninjas/{id}/entrenar                # Entrenar
+POST   /api/ninjas/combate                      # Combate
+
+GET    /api/misiones                            # Listar misiones
+POST   /api/misiones                            # Crear misión
+```
+
+---
+
+## 👥 Autores
+
+- **[Tu Nombre]** - Desarrollo Full Stack
+
+---
+
+## 📄 Licencia
+
+Proyecto educativo - Fines académicos
+
+---
+
+<div align="center">
+  <strong>🥷 Spring Boot + React + Docker 🥷</strong>
+</div>
