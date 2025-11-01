@@ -1,5 +1,6 @@
 package com.proyectoNinja.scNinja.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,7 +15,11 @@ public class Jutsu {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ninja_id")
+    @JsonIgnoreProperties({"jutsus", "aldea"}) // ✅ Evitar referencia circular
     private Ninja ninja;
+
+    // ✅ Constructor vacío requerido por JPA
+    public Jutsu() {}
 
     public Jutsu(String nombre, int poder, String tipo, int chakraCost) {
         this.nombre = nombre;

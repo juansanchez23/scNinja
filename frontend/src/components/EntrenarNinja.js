@@ -52,7 +52,9 @@ function EntrenarNinja({ onUpdate }) {
             <select value={selectedNinja} onChange={(e) => setSelectedNinja(e.target.value)} required>
               <option value="">Selecciona un ninja</option>
               {ninjas.map((ninja) => (
-                <option key={ninja.id} value={ninja.id}>{ninja.nombre} (Dinero: {ninja.getDinero})</option>
+                <option key={ninja.id} value={ninja.id}>
+                  {ninja.nombre} (Dinero: {ninja.dinero}, Rango: {ninja.rango})
+                </option>
               ))}
             </select>
           </label>

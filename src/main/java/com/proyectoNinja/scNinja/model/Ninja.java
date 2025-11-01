@@ -3,17 +3,20 @@ import java.util.List;
 
 import com.proyectoNinja.scNinja.visitor.Exportable;
 import com.proyectoNinja.scNinja.visitor.Visitor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 
 
 @Entity
 @Table(name = "ninjas")
+@JsonIgnoreProperties({"ninjas"})
 public class Ninja implements Exportable{
     @Override
     public void accept(Visitor visitor) {
         visitor.exportar(this);
     }
+    public Ninja() {}
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,9 +30,11 @@ public class Ninja implements Exportable{
 
     @ManyToOne
     @JoinColumn(name = "aldea_id")
+    @JsonIgnoreProperties({"ninjas"})
     private Aldea aldea;
 
-     @OneToMany(mappedBy = "ninja", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "ninja", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"ninja"})
     private List<Jutsu> jutsus = new ArrayList<>();
 
 

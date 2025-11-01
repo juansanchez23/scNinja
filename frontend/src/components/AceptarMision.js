@@ -54,7 +54,9 @@ function AceptarMision({ onUpdate }) {
             <select value={selectedNinja} onChange={(e) => setSelectedNinja(e.target.value)} required>
               <option value="">Selecciona un ninja</option>
               {ninjas.map((ninja) => (
-                <option key={ninja.id} value={ninja.id}>{ninja.nombre} (Rango: {ninja.rango})</option>
+                <option key={ninja.id} value={ninja.id}>
+                  {ninja.nombre} (Rango: {ninja.rango}, Dinero: {ninja.dinero})
+                </option>
               ))}
             </select>
           </label>
@@ -65,7 +67,9 @@ function AceptarMision({ onUpdate }) {
             <select value={selectedMision} onChange={(e) => setSelectedMision(e.target.value)} required>
               <option value="">Selecciona una misión</option>
               {misiones.map((mision) => (
-                <option key={mision.id} value={mision.id}>{mision.nombre} (Rango req: {mision.rangoRequerido})</option>
+                <option key={mision.id} value={mision.id}>
+                  {mision.nombre} (Rango: {mision.rango}, Recompensa: {mision.recompensa})
+                </option>
               ))}
             </select>
           </label>

@@ -13,7 +13,7 @@ function CreateNinjaFactory({ onNinjaCreated }) {
     setError('');
     try {
       const newNinja = await ninjaService.createNinjaWithFactory(nombre, aldea);
-      setMessage(`Ninja ${newNinja.nombre} de ${newNinja.aldea} creado con éxito!`);
+      setMessage(`Ninja ${newNinja.nombre} de ${newNinja.aldea?.nombre || 'desconocida'} creado con éxito!`);
       setNombre('');
       onNinjaCreated(); // Notificar al padre para recargar la lista
     } catch (err) {

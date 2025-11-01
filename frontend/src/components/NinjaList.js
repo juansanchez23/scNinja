@@ -33,10 +33,10 @@ function NinjaList() {
         <ul>
           {ninjas.map((ninja) => (
             <li key={ninja.id}>
-              {ninja.nombre} (Aldea: {ninja.aldea}, Rango: {ninja.rango}, Ataque: {ninja.ataque}, Defensa: {ninja.defensa}, Chakra: {ninja.chakra}, Dinero: {ninja.getDinero})
+              {ninja.nombre} (Aldea: {ninja.aldea?.nombre || 'Sin aldea'}, Rango: {ninja.rango}, Ataque: {ninja.ataque}, Defensa: {ninja.defensa}, Chakra: {ninja.chakra}, Dinero: {ninja.dinero})
               <ul>
                 {ninja.jutsus && ninja.jutsus.map((jutsu, index) => (
-                  <li key={index}>Jutsu: {jutsu.nombre} (Daño: {jutsu.danio}, Coste: {jutsu.costeChakra})</li>
+                  <li key={index}>Jutsu: {jutsu.nombre} (Poder: {jutsu.poder}, Coste: {jutsu.chakraCost})</li>
                 ))}
               </ul>
             </li>

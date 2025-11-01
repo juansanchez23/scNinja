@@ -70,7 +70,9 @@ function CombateNinja({ onUpdate }) {
             }} required>
               <option value="">Selecciona</option>
               {ninjas.map((ninja) => (
-                <option key={ninja.id} value={ninja.id}>{ninja.nombre} (A: {ninja.ataque}, D: {ninja.defensa}, C: {ninja.chakra})</option>
+                <option key={ninja.id} value={ninja.id}>
+                  {ninja.nombre} (A: {ninja.ataque}, D: {ninja.defensa}, C: {ninja.chakra})
+                </option>
               ))}
             </select>
           </label>
@@ -82,7 +84,9 @@ function CombateNinja({ onUpdate }) {
               <select value={selectedJutsu1} onChange={(e) => setSelectedJutsu1(e.target.value)} required>
                 <option value="">Selecciona un jutsu</option>
                 {getNinjaJutsus(selectedNinja1).map((jutsu, index) => (
-                  <option key={index} value={index}>{jutsu.nombre} (Daño: {jutsu.danio}, Coste: {jutsu.costeChakra})</option>
+                  <option key={index} value={index}>
+                    {jutsu.nombre} (Poder: {jutsu.poder}, Coste: {jutsu.chakraCost})
+                  </option>
                 ))}
               </select>
             </label>
@@ -99,7 +103,9 @@ function CombateNinja({ onUpdate }) {
             }} required>
               <option value="">Selecciona</option>
               {ninjas.map((ninja) => (
-                <option key={ninja.id} value={ninja.id}>{ninja.nombre} (A: {ninja.ataque}, D: {ninja.defensa}, C: {ninja.chakra})</option>
+                <option key={ninja.id} value={ninja.id}>
+                  {ninja.nombre} (A: {ninja.ataque}, D: {ninja.defensa}, C: {ninja.chakra})
+                </option>
               ))}
             </select>
           </label>
@@ -111,7 +117,9 @@ function CombateNinja({ onUpdate }) {
               <select value={selectedJutsu2} onChange={(e) => setSelectedJutsu2(e.target.value)} required>
                 <option value="">Selecciona un jutsu</option>
                 {getNinjaJutsus(selectedNinja2).map((jutsu, index) => (
-                  <option key={index} value={index}>{jutsu.nombre} (Daño: {jutsu.danio}, Coste: {jutsu.costeChakra})</option>
+                  <option key={index} value={index}>
+                    {jutsu.nombre} (Poder: {jutsu.poder}, Coste: {jutsu.chakraCost})
+                  </option>
                 ))}
               </select>
             </label>

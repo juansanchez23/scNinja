@@ -18,6 +18,7 @@ public class Mision implements Exportable{
     private String rango; // D, C, B, A, S
     private int recompensa;
 
+    public Mision() {}
     public Mision(String nombre, String rango, int recompensa) {
         this.nombre = nombre;
         this.rango = rango;

@@ -7,9 +7,11 @@ import com.proyectoNinja.scNinja.factory.KirigaFactory;
 import com.proyectoNinja.scNinja.factory.KonohaFactory;
 import com.proyectoNinja.scNinja.factory.KumogaFactory;
 import com.proyectoNinja.scNinja.factory.SunaFactory;
+import com.proyectoNinja.scNinja.model.Aldea;
 import com.proyectoNinja.scNinja.model.Jutsu;
 import com.proyectoNinja.scNinja.model.Mision;
 import com.proyectoNinja.scNinja.model.Ninja;
+import com.proyectoNinja.scNinja.repository.AldeaRepository;
 import com.proyectoNinja.scNinja.repository.MisionRepository;
 import com.proyectoNinja.scNinja.repository.NinjaRepository;
 import org.springframework.stereotype.Service;
@@ -23,28 +25,35 @@ import java.util.Optional;
 public class NinjaService {
     private final NinjaRepository  ninjaRepo;
     private final MisionRepository misionRepo;
+    private final AldeaRepository aldeaRepo;
     
-    public NinjaService(NinjaRepository ninjaRepo, MisionRepository misionRepo){
+    public NinjaService(NinjaRepository ninjaRepo, MisionRepository misionRepo, AldeaRepository aldeaRepo){
         this.ninjaRepo = ninjaRepo;
         this.misionRepo = misionRepo;
+        this.aldeaRepo = aldeaRepo;
     }
 
     // Crear por factory (elige aldea)
     public Ninja crearConFactory(String nombre, String aldeaName) {
-        AldeaFactory factory;
-        if ("suna".equalsIgnoreCase(aldeaName)) factory = new SunaFactory();
-        else if ("Iwaga".equalsIgnoreCase(aldeaName)) factory = new IwagaFactory();
-        else if ("Kiriga".equalsIgnoreCase(aldeaName)) factory = new KirigaFactory();
-        else if ("Kumoga".equalsIgnoreCase(aldeaName)) factory = new KumogaFactory();
-        else factory = new KonohaFactory();
-        Ninja n = factory.crearNinja(nombre);
+        // Buscar o crear la aldea
+        Aldea aldea = aldeaRepo.findByNombre(aldeaName)
+            .orElseGet(() -> aldeaRepo.save(new Aldea(aldeaName)));
+        
+        // Crear ninja con stats según la aldea
+        Ninja n = new Ninja(nombre, "Genin", 25, 25, 25, aldea);
+        n.addJutsu(new Jutsu("Bunshinjutsu", 40, "Neutral", 10));
+        
         return ninjaRepo.save(n);
     }
 
     // Crear personalizado con builder
     public Ninja crearPersonalizado(NinjaBuilder builder) {
-        Ninja n = builder.build();
-        return ninjaRepo.save(n);
+        Aldea aldea = aldeaRepo.findByNombre(builder.getAldeaNombre())
+        .orElseGet(() -> aldeaRepo.save(new Aldea(builder.getAldeaNombre())));
+    
+    // Construir el ninja con la aldea
+    Ninja n = builder.build(aldea);
+    return ninjaRepo.save(n);
     }
 
     public List<Ninja> listarTodos() { return ninjaRepo.findAll(); }

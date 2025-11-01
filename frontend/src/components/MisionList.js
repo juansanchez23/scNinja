@@ -33,7 +33,7 @@ function MisionList() {
         <ul>
           {misiones.map((mision) => (
             <li key={mision.id}>
-              {mision.nombre} (Rango requerido: {mision.rangoRequerido}, Recompensa Dinero: {mision.recompensaDinero}, Recompensa Experiencia: {mision.recompensaExperiencia})
+              {mision.nombre} (Rango: {mision.rango}, Recompensa: {mision.recompensa} ryo)
             </li>
           ))}
         </ul>
